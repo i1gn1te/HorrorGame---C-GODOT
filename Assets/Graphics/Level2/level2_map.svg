@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900">
+  <rect width="1400" height="900" fill="#100d0a"/>
+  <text x="50" y="70" fill="#f0c58b" font-family="Arial" font-size="38" font-weight="700">LEVEL 2 - ABANDONED UTILITY HALLS / MAPA</text>
+  <text x="50" y="110" fill="#d6ae7a" font-family="Arial" font-size="20">Ciasne hale techniczne, rury, cieplo, brownout, pierwszy agresywny jumpscare zza rogu.</text>
+  <rect x="120" y="150" width="700" height="650" fill="#463124" stroke="#bd7f45" stroke-width="8"/>
+  <g fill="#281b14" stroke="#bd7f45" stroke-width="4">
+    <rect x="120" y="150" width="700" height="35"/>
+    <rect x="120" y="765" width="700" height="35"/>
+    <rect x="120" y="150" width="35" height="650"/>
+    <rect x="785" y="150" width="35" height="650"/>
+    <rect x="260" y="185" width="38" height="350"/>
+    <rect x="415" y="420" width="38" height="345"/>
+    <rect x="560" y="185" width="38" height="360"/>
+    <rect x="598" y="505" width="187" height="38"/>
+  </g>
+  <g stroke="#d59958" stroke-width="9" opacity="0.8">
+    <path d="M190 245 H735"/>
+    <path d="M190 690 H735"/>
+    <path d="M705 210 V730"/>
+  </g>
+  <path d="M205 715 C260 650 345 610 365 510 C385 410 520 405 535 300 C550 205 650 230 735 245" stroke="#f0e9b8" stroke-width="10" stroke-dasharray="26 20" fill="none"/>
+  <circle cx="205" cy="715" r="26" fill="#3b8ae0"/>
+  <circle cx="610" cy="330" r="38" fill="#b82019"/>
+  <text x="645" y="340" fill="#ffd4c8" font-family="Arial" font-size="20">JUMPSCARE</text>
+  <rect x="706" y="212" width="58" height="70" fill="#45d0aa"/>
+  <text x="930" y="190" fill="#f0c58b" font-family="Arial" font-size="30" font-weight="700">Mechanika</text>
+  <text x="930" y="245" fill="#f0c58b" font-family="Arial" font-size="22">- FlashBurst zatrzymuje byt</text>
+  <text x="930" y="285" fill="#f0c58b" font-family="Arial" font-size="22">- ciasne rogi = presja</text>
+  <text x="930" y="325" fill="#f0c58b" font-family="Arial" font-size="22">- rury prowadza gracza</text>
+  <text x="930" y="365" fill="#f0c58b" font-family="Arial" font-size="22">- stinger tylko przy kontakcie</text>
+</svg>

@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://b3an5xa5w3a1l"]
+
+[ext_resource type="Script" path="res://Scripts/Enemies/EnemyDummy.cs" id="1_enemy_dummy"]
+[ext_resource type="Material" path="res://Materials/M_Enemy.tres" id="2_enemy_material"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_enemy_collision"]
+size = Vector3(1, 1.8, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_enemy"]
+size = Vector3(1, 1.8, 1)
+
+[node name="EnemyDummy" type="CharacterBody3D" groups=["enemies"]]
+script = ExtResource("1_enemy_dummy")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("BoxShape3D_enemy_collision")
+
+[node name="Body" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+mesh = SubResource("BoxMesh_enemy")
+surface_material_override/0 = ExtResource("2_enemy_material")

@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://Assets/Graphics/Level0/WallpaperVariants/level0_wallpaper_variant_01.png" id="1_tex"]
+
+[resource]
+albedo_color = Color(0.92, 0.9, 0.62, 1)
+albedo_texture = ExtResource("1_tex")
+roughness = 0.93
+uv1_scale = Vector3(2.6, 2.6, 1)

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <title>Level 0 Ceiling Panel Tile</title>
+  <defs>
+    <filter id="dust">
+      <feTurbulence type="fractalNoise" baseFrequency="0.72" numOctaves="3" seed="8"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.12"/>
+      </feComponentTransfer>
+    </filter>
+  </defs>
+  <rect width="512" height="512" fill="#d8d0a8"/>
+  <rect width="512" height="512" filter="url(#dust)" opacity="0.5"/>
+  <g stroke="#a69b71" stroke-width="5">
+    <path d="M0 128 H512 M0 256 H512 M0 384 H512"/>
+    <path d="M128 0 V512 M256 0 V512 M384 0 V512"/>
+  </g>
+  <rect x="160" y="236" width="192" height="40" fill="#fff4aa" stroke="#817541" stroke-width="6"/>
+  <rect x="178" y="250" width="156" height="10" fill="#ffffd6" opacity="0.8"/>
+</svg>

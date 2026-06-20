@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Scripts/World/BackroomsLevelBuilder.cs" id="1_builder"]
+
+[node name="Level02_HabitableZone" type="Node3D"]
+script = ExtResource("1_builder")
+BackroomsLevel = 1
+NextScenePath = "res://Scenes/Levels/Level03_UtilityHalls.tscn"
+EndMessage = "Koniec prototypu Habitable Zone."

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="768" viewBox="0 0 1024 768">
+  <rect width="1024" height="768" fill="#3f291e"/>
+  <rect x="45" y="45" width="934" height="678" fill="#4c3324" stroke="#120b07" stroke-width="12"/>
+  <text x="90" y="120" font-family="Arial" font-size="38" font-weight="700" fill="#f0c58b">MAINTENANCE LOG</text>
+  <g stroke="#d19155" stroke-width="16" fill="none">
+    <path d="M95 230 H930"/>
+    <path d="M95 350 H930"/>
+    <path d="M95 470 H930"/>
+  </g>
+  <text x="120" y="285" font-family="Arial" font-size="25" fill="#f0c58b">pressure stable / voices increasing</text>
+  <text x="120" y="405" font-family="Arial" font-size="25" fill="#f0c58b">pipe 07 knocked back</text>
+  <text x="120" y="525" font-family="Arial" font-size="25" fill="#f0c58b">corner camera failed before impact</text>
+  <text x="250" y="650" font-family="Arial" font-size="44" font-weight="700" fill="#120b07">IT WAITS WHERE YOU TURN</text>
+</svg>

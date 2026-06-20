@@ -1,0 +1,254 @@
+[gd_scene load_steps=19 format=3 uid="uid://d0x8c3gkvxw2u"]
+
+[ext_resource type="Material" uid="uid://tb4gy1r4poju" path="res://Materials/M_Level0_Carpet_PBR.tres" id="1_floor_material"]
+[ext_resource type="Material" path="res://Materials/M_Ceiling.tres" id="3_ceiling_material"]
+[ext_resource type="Material" uid="uid://chjx4k3o0d7ho" path="res://Materials/M_Level0_Wall.tres" id="3_jwheq"]
+[ext_resource type="Material" path="res://Materials/M_Exit.tres" id="4_exit_material"]
+[ext_resource type="Script" uid="uid://df1if72p3x3pk" path="res://Scripts/World/LevelExitTrigger.cs" id="6_exit_trigger"]
+[ext_resource type="Script" uid="uid://bmkx72ivdask3" path="res://Scripts/World/SilentBeatTrigger.cs" id="7_silent_beat"]
+[ext_resource type="Script" uid="uid://cbkh2ktncxk1m" path="res://Scripts/World/CheckpointTrigger.cs" id="8_checkpoint_trigger"]
+[ext_resource type="Script" uid="uid://bym6vkd4b8cec" path="res://Scripts/World/FlickerLight.cs" id="12_flicker_light"]
+[ext_resource type="Material" path="res://Materials/M_Checkpoint.tres" id="15_checkpoint_material"]
+[ext_resource type="Script" uid="uid://cdeuhgcrsd5ky" path="res://Scripts/World/AudioBeatTrigger.cs" id="17_audio_beat"]
+[ext_resource type="Script" uid="uid://ihb1coh3fiq3" path="res://Scripts/World/WallStoryTrigger.cs" id="20_story_trigger"]
+[ext_resource type="Script" uid="uid://cmlcakm4lt3ma" path="res://Scripts/World/AudioProfileTrigger.cs" id="22_audio_profile"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_level"]
+sky_horizon_color = Color(0.13, 0.12, 0.1, 1)
+ground_horizon_color = Color(0.13, 0.12, 0.1, 1)
+
+[sub_resource type="Sky" id="Sky_level"]
+sky_material = SubResource("ProceduralSkyMaterial_level")
+
+[sub_resource type="Environment" id="Environment_level"]
+background_mode = 2
+sky = SubResource("Sky_level")
+ambient_light_source = 3
+ambient_light_color = Color(0.42, 0.36, 0.22, 1)
+ambient_light_energy = 1.55
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.008
+volumetric_fog_albedo = Color(0.8, 0.74, 0.58, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_checkpoint"]
+size = Vector3(2.8, 2.2, 2.8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_silent_beat"]
+size = Vector3(5, 2.5, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_exit"]
+size = Vector3(2.6, 2.6, 1)
+
+[node name="Level01_LiminalLobby" type="Node3D"]
+
+[node name="PlayerSpawn" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 9)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_level")
+
+[node name="Blockout" type="Node3D" parent="."]
+
+[node name="Floor_Main" type="CSGBox3D" parent="Blockout"]
+use_collision = true
+size = Vector3(18, 0.25, 26)
+material = ExtResource("1_floor_material")
+
+[node name="Ceiling_Main" type="CSGBox3D" parent="Blockout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.2, 0)
+use_collision = true
+size = Vector3(18, 0.25, 26)
+material = ExtResource("3_ceiling_material")
+
+[node name="Wall_Left" type="CSGBox3D" parent="Blockout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 1.6, 0)
+use_collision = true
+size = Vector3(0.35, 3.2, 26)
+material = ExtResource("3_jwheq")
+
+[node name="Wall_Right" type="CSGBox3D" parent="Blockout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 1.6, 0)
+use_collision = true
+size = Vector3(0.35, 3.2, 26)
+material = ExtResource("3_jwheq")
+
+[node name="Wall_Back" type="CSGBox3D" parent="Blockout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 13)
+use_collision = true
+size = Vector3(18, 3.2, 0.35)
+material = ExtResource("3_jwheq")
+
+[node name="Wall_Front_Left" type="CSGBox3D" parent="Blockout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.6, 1.6, -13)
+use_collision = true
+size = Vector3(6.8, 3.2, 0.35)
+material = ExtResource("3_jwheq")
+
+[node name="Wall_Front_Right" type="CSGBox3D" parent="Blockout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.6, 1.6, -13)
+use_collision = true
+size = Vector3(6.8, 3.2, 0.35)
+material = ExtResource("3_jwheq")
+
+[node name="Central_Pillar" type="CSGBox3D" parent="Blockout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, -1)
+use_collision = true
+size = Vector3(2.2, 3.2, 2.2)
+material = ExtResource("3_jwheq")
+
+[node name="Side_Room_Block" type="CSGBox3D" parent="Blockout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2, 1.6, 5.5)
+use_collision = true
+size = Vector3(4.2, 3.2, 6)
+material = ExtResource("3_jwheq")
+
+[node name="Nook_Wall_Left_01" type="CSGBox3D" parent="Blockout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.7, 1.6, 5.6)
+use_collision = true
+size = Vector3(4.1, 3.2, 0.35)
+material = ExtResource("3_jwheq")
+
+[node name="Nook_Wall_Left_02" type="CSGBox3D" parent="Blockout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.8, 1.6, 8.2)
+use_collision = true
+size = Vector3(0.35, 3.2, 3.8)
+material = ExtResource("3_jwheq")
+
+[node name="Nook_Wall_Right_01" type="CSGBox3D" parent="Blockout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.8, 1.6, -3.8)
+use_collision = true
+size = Vector3(4, 3.2, 0.35)
+material = ExtResource("3_jwheq")
+
+[node name="Nook_Wall_Right_02" type="CSGBox3D" parent="Blockout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9, 1.6, -6.2)
+use_collision = true
+size = Vector3(0.35, 3.2, 3.8)
+material = ExtResource("3_jwheq")
+
+[node name="Nook_Wall_Back_01" type="CSGBox3D" parent="Blockout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2, 1.6, -8.6)
+use_collision = true
+size = Vector3(0.35, 3.2, 4.2)
+material = ExtResource("3_jwheq")
+
+[node name="Nook_Wall_Back_02" type="CSGBox3D" parent="Blockout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2, 1.6, -8.6)
+use_collision = true
+size = Vector3(0.35, 3.2, 4.2)
+material = ExtResource("3_jwheq")
+
+[node name="Exit_Glow_Box" type="CSGBox3D" parent="Blockout"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, -12.35)
+size = Vector3(2.4, 2.4, 0.2)
+material = ExtResource("4_exit_material")
+
+[node name="FluorescentLights" type="Node3D" parent="."]
+
+[node name="Light_01" type="OmniLight3D" parent="FluorescentLights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.164276, 2.85, 8.91855)
+light_color = Color(1, 0.92, 0.66, 1)
+light_energy = 2.2
+omni_range = 9.0
+script = ExtResource("12_flicker_light")
+BaseEnergy = 2.2
+FlickerStrength = 0.08
+RandomDropChance = 0.0
+
+[node name="Light_02" type="OmniLight3D" parent="FluorescentLights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.96831, 2.85, -0.0238179)
+light_color = Color(1, 0.92, 0.66, 1)
+light_energy = 2.0
+omni_range = 8.0
+script = ExtResource("12_flicker_light")
+BaseEnergy = 2.0
+FlickerStrength = 0.06
+RandomDropChance = 0.0
+
+[node name="Light_03" type="OmniLight3D" parent="FluorescentLights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.85, -8.5)
+light_color = Color(0.8, 0.95, 1, 1)
+light_energy = 0.28
+omni_range = 3.2
+script = ExtResource("12_flicker_light")
+BaseEnergy = 0.28
+FlickerStrength = 0.22
+RandomDropChance = 0.08
+
+[node name="Light_05" type="OmniLight3D" parent="FluorescentLights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.94827, 2.89452, 8.86884)
+light_color = Color(1, 0.94, 0.68, 1)
+light_energy = 2.0
+omni_range = 7.5
+
+[node name="Light_06" type="OmniLight3D" parent="FluorescentLights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.90235, 2.85, -8.66812)
+light_color = Color(1, 0.9, 0.62, 1)
+light_energy = 1.65
+omni_range = 6.5
+
+[node name="BrokenLight_DarkCorner" type="OmniLight3D" parent="FluorescentLights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.1, 2.85, -7.5)
+light_color = Color(0.55, 0.72, 1, 1)
+light_energy = 0.06
+omni_range = 2.2
+script = ExtResource("12_flicker_light")
+BaseEnergy = 0.06
+FlickerStrength = 0.12
+RandomDropChance = 0.2
+
+[node name="AudioProfile_Level0" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 8.8)
+script = ExtResource("22_audio_profile")
+StartThreatLevel = 0.05
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AudioProfile_Level0"]
+shape = SubResource("BoxShape3D_checkpoint")
+
+[node name="StoryTrigger_Threshold" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 11.4)
+script = ExtResource("20_story_trigger")
+StoryText = "Na obrazie widzisz wejscie do pokoju, w ktorym wlasnie stoisz. Brakuje tylko ciebie."
+FearAmount = 6.0
+ThreatLevel = 0.18
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StoryTrigger_Threshold"]
+shape = SubResource("BoxShape3D_silent_beat")
+
+[node name="Checkpoint_Entrance" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 7.6)
+script = ExtResource("8_checkpoint_trigger")
+CheckpointMessage = "Ten fragment przestrzeni zapamietuje twoj ksztalt."
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Checkpoint_Entrance"]
+shape = SubResource("BoxShape3D_checkpoint")
+
+[node name="Checkpoint_Visual" type="CSGBox3D" parent="Checkpoint_Entrance"]
+size = Vector3(1.2, 0.08, 1.2)
+material = ExtResource("15_checkpoint_material")
+
+[node name="SilentBeat_01" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 4)
+script = ExtResource("7_silent_beat")
+BeatText = "Cisza trwa za długo. Jakby budynek wstrzymywał oddech."
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SilentBeat_01"]
+shape = SubResource("BoxShape3D_silent_beat")
+
+[node name="AudioBeat_NearDoor" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, -8.2)
+script = ExtResource("17_audio_beat")
+ThreatLevel = 0.55
+Message = "Brzeczenie lamp na chwile robi sie podobne do szeptu."
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AudioBeat_NearDoor"]
+shape = SubResource("BoxShape3D_silent_beat")
+
+[node name="ExitTrigger" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, -12)
+script = ExtResource("6_exit_trigger")
+NextScenePath = "res://Scenes/Levels/Level02_HabitableZone.tscn"
+MissingSceneMessage = "Nastepny level nie jest jeszcze gotowy."
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ExitTrigger"]
+shape = SubResource("BoxShape3D_exit")

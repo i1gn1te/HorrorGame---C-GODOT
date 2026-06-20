@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://c8ktso7d08bxu"]
+
+[ext_resource type="Script" uid="uid://cypy33bfcnujo" path="res://Scripts/Enemies/CornerStalkerEnemy.cs" id="1_script"]
+[ext_resource type="Material" path="res://Materials/M_Enemy_Stalker.tres" id="2_material"]
+[ext_resource type="ArrayMesh" uid="uid://bwg2j3tp7uhav" path="res://Models/Backrooms/corner_stalker_heavy.obj" id="3_mesh"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_stalker"]
+size = Vector3(1.35, 2.95, 1.1)
+
+[node name="CornerStalkerEnemy" type="CharacterBody3D" groups=["enemies"]]
+script = ExtResource("1_script")
+WalkSpeed = 1.35
+LurchSpeed = 4.9
+EnemyName = "Corner Stalker"
+StartHidden = true
+StartInactive = true
+MaxHealth = 230.0
+AggroRange = 18.0
+AttackRange = 1.85
+AttackDamage = 24.0
+WakeMessage = "Cos ciezkiego odrywa sie od sciany."
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
+shape = SubResource("BoxShape3D_stalker")
+
+[node name="Body" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.72, 0)
+mesh = ExtResource("3_mesh")
+surface_material_override/0 = ExtResource("2_material")

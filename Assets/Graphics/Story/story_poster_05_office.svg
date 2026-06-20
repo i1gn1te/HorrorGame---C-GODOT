@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="768" viewBox="0 0 1024 768">
+  <rect width="1024" height="768" fill="#cfd5d7"/>
+  <rect x="55" y="55" width="914" height="658" fill="#e0e5e6" stroke="#1a1d20" stroke-width="10"/>
+  <text x="90" y="125" font-family="Arial" font-size="42" font-weight="700" fill="#1a1d20">EMPLOYEE OF THE MONTH</text>
+  <rect x="350" y="185" width="330" height="330" fill="#050607"/>
+  <text x="395" y="370" font-family="Arial" font-size="54" font-weight="700" fill="#ffffff">NO FACE</text>
+  <text x="125" y="605" font-family="Arial" font-size="34" font-weight="700" fill="#1a1d20">YOUR BADGE WAS PRINTED BEFORE YOU ARRIVED</text>
+</svg>

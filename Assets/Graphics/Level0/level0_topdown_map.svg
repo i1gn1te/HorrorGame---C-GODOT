@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
+  <title>Level 0 Top Down Map - Gra3D</title>
+  <desc>Original top-down blockout map inspired by Level 0 liminal office maze themes.</desc>
+  <defs>
+    <pattern id="carpetGrid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <rect width="24" height="24" fill="#746344"/>
+      <path d="M0 12 H24 M12 0 V24" stroke="#6b5b3f" stroke-width="1" opacity="0.45"/>
+      <path d="M2 21 C8 18 14 25 22 19" stroke="#81704d" stroke-width="1" opacity="0.35" fill="none"/>
+    </pattern>
+    <filter id="softShadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#1a160d" flood-opacity="0.35"/>
+    </filter>
+    <style>
+      .bg { fill: #17140e; }
+      .floor { fill: url(#carpetGrid); stroke: #d1bd70; stroke-width: 6; }
+      .wall { fill: #c9b363; stroke: #4b3e23; stroke-width: 3; }
+      .thinWall { fill: #bca75b; stroke: #4b3e23; stroke-width: 2; }
+      .dark { fill: #060606; stroke: #25231b; stroke-width: 4; }
+      .red { fill: #4d1616; stroke: #9f3b2d; stroke-width: 4; }
+      .wet { fill: #3d3929; opacity: 0.45; }
+      .light { fill: #fff7ba; stroke: #d1bd70; stroke-width: 2; }
+      .spawn { fill: #2f7dd6; stroke: #d7ebff; stroke-width: 4; }
+      .key { fill: #f0bc35; stroke: #372915; stroke-width: 3; }
+      .exit { fill: #38d29f; stroke: #d8fff1; stroke-width: 4; }
+      .enemy { fill: #8f1e18; stroke: #ffd2c8; stroke-width: 3; }
+      .label { font-family: Arial, sans-serif; font-size: 24px; fill: #f4e7b8; font-weight: 700; }
+      .small { font-family: Arial, sans-serif; font-size: 18px; fill: #f4e7b8; }
+      .tiny { font-family: Arial, sans-serif; font-size: 14px; fill: #3a2c14; font-weight: 700; }
+      .line { stroke: #f4e7b8; stroke-width: 3; stroke-dasharray: 12 10; fill: none; opacity: 0.55; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1600" height="1000"/>
+  <text x="60" y="70" class="label">LEVEL 0 / THRESHOLD - MAPA BLOCKOUT</text>
+  <text x="60" y="105" class="small">Liminal office maze: zolte sciany, mokry dywan, jarzeniowki, blackout zones, czerwony pokoj za odklejona tapeta.</text>
+
+  <g transform="translate(70 145)" filter="url(#softShadow)">
+    <rect class="floor" x="0" y="0" width="1110" height="780" rx="10"/>
+
+    <!-- perimeter walls -->
+    <rect class="wall" x="0" y="0" width="1110" height="34"/>
+    <rect class="wall" x="0" y="746" width="1110" height="34"/>
+    <rect class="wall" x="0" y="0" width="34" height="780"/>
+    <rect class="wall" x="1076" y="0" width="34" height="780"/>
+
+    <!-- maze walls -->
+    <rect class="wall" x="140" y="34" width="34" height="250"/>
+    <rect class="wall" x="270" y="160" width="34" height="260"/>
+    <rect class="wall" x="410" y="34" width="34" height="185"/>
+    <rect class="wall" x="540" y="130" width="34" height="300"/>
+    <rect class="wall" x="690" y="34" width="34" height="250"/>
+    <rect class="wall" x="840" y="145" width="34" height="290"/>
+    <rect class="wall" x="170" y="365" width="220" height="34"/>
+    <rect class="wall" x="430" y="475" width="300" height="34"/>
+    <rect class="wall" x="760" y="565" width="220" height="34"/>
+    <rect class="wall" x="95" y="585" width="320" height="34"/>
+    <rect class="wall" x="570" y="675" width="34" height="105"/>
+
+    <!-- awkward pillars -->
+    <rect class="thinWall" x="500" y="62" width="54" height="54"/>
+    <rect class="thinWall" x="940" y="80" width="54" height="54"/>
+    <rect class="thinWall" x="610" y="540" width="54" height="54"/>
+    <rect class="thinWall" x="155" y="455" width="54" height="54"/>
+
+    <!-- feature zones -->
+    <rect class="dark" x="895" y="620" width="150" height="105" rx="5"/>
+    <text x="910" y="675" class="small">BLACKOUT</text>
+
+    <rect class="red" x="440" y="615" width="120" height="90" rx="4"/>
+    <text x="455" y="668" class="small">RED ROOM</text>
+
+    <ellipse class="wet" cx="365" cy="95" rx="95" ry="35"/>
+    <ellipse class="wet" cx="735" cy="405" rx="130" ry="42"/>
+    <ellipse class="wet" cx="260" cy="700" rx="105" ry="30"/>
+
+    <!-- player route -->
+    <path class="line" d="M72 694 C160 620 182 515 250 485 C360 437 358 292 475 258 C612 218 642 385 780 435 C930 490 960 605 1016 681"/>
+
+    <!-- gameplay markers -->
+    <circle class="spawn" cx="72" cy="694" r="24"/>
+    <text x="46" y="742" class="small">SPAWN</text>
+
+    <path class="key" d="M322 498 a24 24 0 1 0 1 0.1 M344 498 h70 v18 h-18 v18 h-22 v-18 h-30z"/>
+    <text x="304" y="565" class="small">KLUCZ</text>
+
+    <circle class="enemy" cx="610" cy="260" r="22"/>
+    <circle class="enemy" cx="820" cy="500" r="22"/>
+    <text x="570" y="310" class="small">MANEKIN</text>
+    <text x="780" y="548" class="small">CIEN</text>
+
+    <rect class="exit" x="990" y="650" width="56" height="88" rx="4"/>
+    <text x="960" y="760" class="small">WYJSCIE</text>
+
+    <!-- lights -->
+    <g opacity="0.9">
+      <rect class="light" x="220" y="74" width="105" height="12" rx="5"/>
+      <rect class="light" x="575" y="92" width="105" height="12" rx="5"/>
+      <rect class="light" x="780" y="225" width="105" height="12" rx="5"/>
+      <rect class="light" x="330" y="440" width="105" height="12" rx="5"/>
+      <rect class="light" x="690" y="655" width="105" height="12" rx="5"/>
+    </g>
+  </g>
+
+  <g transform="translate(1230 150)">
+    <text x="0" y="0" class="label">Legenda</text>
+    <rect x="0" y="35" width="34" height="24" class="wall"/><text x="50" y="55" class="small">Sciany / segmenty biura</text>
+    <circle cx="17" cy="92" r="15" class="spawn"/><text x="50" y="100" class="small">Spawn gracza</text>
+    <circle cx="17" cy="132" r="15" class="enemy"/><text x="50" y="140" class="small">Przeciwnik / manekin</text>
+    <rect x="0" y="160" width="34" height="26" class="dark"/><text x="50" y="180" class="small">Blackout zone</text>
+    <rect x="0" y="205" width="34" height="26" class="red"/><text x="50" y="225" class="small">Red room / anomalia</text>
+    <rect x="0" y="250" width="34" height="26" class="exit"/><text x="50" y="270" class="small">Przejscie dalej</text>
+  </g>
+
+  <g transform="translate(1230 505)">
+    <text x="0" y="0" class="label">Zasady levelu</text>
+    <text x="0" y="42" class="small">1. Brak okien, brak wyraznego celu.</text>
+    <text x="0" y="76" class="small">2. Powtarzalnosc, ale kazdy pokoj lekko inny.</text>
+    <text x="0" y="110" class="small">3. Dlugie ciche odcinki przed walka.</text>
+    <text x="0" y="144" class="small">4. Ciemnosc jako brama, nie tylko dekoracja.</text>
+    <text x="0" y="178" class="small">5. Dywan wyglada wilgotno i nieprzyjemnie.</text>
+  </g>
+</svg>

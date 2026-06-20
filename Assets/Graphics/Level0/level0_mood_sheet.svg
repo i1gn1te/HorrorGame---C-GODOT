@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
+  <title>Level 0 Mood Sheet - Gra3D</title>
+  <desc>Original visual direction sheet for a Level 0 inspired liminal spaces map.</desc>
+  <defs>
+    <style>
+      .bg { fill: #14110b; }
+      .panel { fill: #282013; stroke: #8a713f; stroke-width: 3; }
+      .title { font-family: Arial, sans-serif; font-size: 42px; fill: #f5e6aa; font-weight: 800; }
+      .h { font-family: Arial, sans-serif; font-size: 28px; fill: #f5e6aa; font-weight: 800; }
+      .t { font-family: Arial, sans-serif; font-size: 21px; fill: #f2df9a; }
+      .small { font-family: Arial, sans-serif; font-size: 17px; fill: #f2df9a; }
+      .wallpaper { fill: #c7b161; }
+      .carpet { fill: #706044; }
+      .ceiling { fill: #dad5b4; }
+      .shadow { fill: #070705; }
+      .red { fill: #6b1d18; }
+      .line { stroke: #3e321a; stroke-width: 5; fill: none; opacity: 0.55; }
+      .thin { stroke: #f5e6aa; stroke-width: 2; fill: none; opacity: 0.55; }
+    </style>
+    <pattern id="wallPattern" width="44" height="44" patternUnits="userSpaceOnUse">
+      <rect width="44" height="44" fill="#c7b161"/>
+      <path d="M4 12 C14 2 30 2 40 12 M4 34 C14 24 30 24 40 34" stroke="#ab934b" stroke-width="2" fill="none" opacity="0.55"/>
+      <path d="M0 0 H44 M0 44 H44" stroke="#d6c476" stroke-width="1" opacity="0.35"/>
+    </pattern>
+    <pattern id="carpetPattern" width="36" height="36" patternUnits="userSpaceOnUse">
+      <rect width="36" height="36" fill="#706044"/>
+      <path d="M2 10 C8 6 16 13 23 8 S31 4 35 9 M0 26 C9 20 16 31 25 25 S32 21 36 26" stroke="#867351" stroke-width="1.5" fill="none" opacity="0.5"/>
+    </pattern>
+  </defs>
+
+  <rect class="bg" width="1600" height="1000"/>
+  <text x="60" y="75" class="title">LEVEL 0 / THRESHOLD - KIERUNEK GRAFICZNY</text>
+  <text x="60" y="115" class="t">Pierwszy kontakt: zwykle miejsce, ktore po minucie zaczyna wygladac jak pulapka.</text>
+
+  <g transform="translate(60 160)">
+    <rect class="panel" x="0" y="0" width="700" height="365" rx="8"/>
+    <text x="28" y="45" class="h">Sciana i tapeta</text>
+    <rect x="35" y="80" width="285" height="220" fill="url(#wallPattern)" stroke="#4d3d1e" stroke-width="5"/>
+    <path class="line" d="M74 250 C150 210 220 270 295 220"/>
+    <rect x="350" y="80" width="285" height="220" fill="#bfa757" stroke="#4d3d1e" stroke-width="5"/>
+    <path d="M385 115 C420 125 455 112 490 120 C530 130 560 105 610 115" class="thin"/>
+    <path d="M405 245 C455 220 490 265 535 235 C560 220 590 230 620 218" class="thin"/>
+    <text x="35" y="333" class="small">Material: zolto-bezowa tapeta, lekko mokra, powtarzalna, tania.</text>
+  </g>
+
+  <g transform="translate(840 160)">
+    <rect class="panel" x="0" y="0" width="700" height="365" rx="8"/>
+    <text x="28" y="45" class="h">Dywan i sufit</text>
+    <rect x="35" y="80" width="285" height="220" fill="url(#carpetPattern)" stroke="#4d3d1e" stroke-width="5"/>
+    <g transform="translate(360 80)">
+      <rect width="285" height="220" class="ceiling" stroke="#4d3d1e" stroke-width="5"/>
+      <path d="M0 55 H285 M0 110 H285 M0 165 H285 M71 0 V220 M142 0 V220 M213 0 V220" stroke="#a8a17b" stroke-width="3"/>
+      <rect x="85" y="92" width="120" height="20" fill="#fff4aa" stroke="#82773f" stroke-width="3"/>
+      <rect x="95" y="100" width="100" height="4" fill="#f7ffdb"/>
+    </g>
+    <text x="35" y="333" class="small">Dywan ma wygladac na wilgotny. Sufit: niskie panele i agresywne lampy.</text>
+  </g>
+
+  <g transform="translate(60 580)">
+    <rect class="panel" x="0" y="0" width="700" height="325" rx="8"/>
+    <text x="28" y="45" class="h">Paleta i stany strachu</text>
+    <rect x="35" y="82" width="92" height="92" class="wallpaper"/><text x="35" y="205" class="small">tapeta</text>
+    <rect x="153" y="82" width="92" height="92" class="carpet"/><text x="153" y="205" class="small">dywan</text>
+    <rect x="271" y="82" width="92" height="92" class="ceiling"/><text x="271" y="205" class="small">sufit</text>
+    <rect x="389" y="82" width="92" height="92" class="shadow"/><text x="389" y="205" class="small">blackout</text>
+    <rect x="507" y="82" width="92" height="92" class="red"/><text x="507" y="205" class="small">anomalia</text>
+    <text x="35" y="260" class="t">Strach narasta przez powtarzalnosc, zle swiatlo i brak odpowiedzi.</text>
+  </g>
+
+  <g transform="translate(840 580)">
+    <rect class="panel" x="0" y="0" width="700" height="325" rx="8"/>
+    <text x="28" y="45" class="h">Elementy mapy</text>
+    <text x="35" y="92" class="t">- dlugie korytarze bez okien</text>
+    <text x="35" y="130" class="t">- filary, ktore zaslaniaja widok</text>
+    <text x="35" y="168" class="t">- boczne pokoje z kluczami i cisza</text>
+    <text x="35" y="206" class="t">- blackout zone przed mocniejsza scena</text>
+    <text x="35" y="244" class="t">- czerwony pokoj tylko jako zapowiedz anomalii</text>
+    <text x="35" y="282" class="t">- wrogowie widoczni pozno, najlepiej za zakretem</text>
+  </g>
+</svg>

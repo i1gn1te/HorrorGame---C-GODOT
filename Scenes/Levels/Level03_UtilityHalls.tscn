@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Scripts/World/BackroomsLevelBuilder.cs" id="1_builder"]
+
+[node name="Level03_UtilityHalls" type="Node3D"]
+script = ExtResource("1_builder")
+BackroomsLevel = 2
+NextScenePath = "res://Scenes/Levels/Level04_ElectricalStation.tscn"
+EndMessage = "Koniec prototypu Utility Halls."

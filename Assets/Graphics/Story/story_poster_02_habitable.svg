@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="768" viewBox="0 0 1024 768">
+  <rect width="1024" height="768" fill="#4d5354"/>
+  <rect x="55" y="55" width="914" height="658" fill="#596163" stroke="#111415" stroke-width="10"/>
+  <text x="95" y="130" font-family="Arial" font-size="40" font-weight="700" fill="#dce4e1">BASE NOTICE</text>
+  <text x="95" y="185" font-family="Arial" font-size="25" fill="#dce4e1">If you hear your name in the pipes, do not answer.</text>
+  <text x="95" y="240" font-family="Arial" font-size="25" fill="#dce4e1">If a map shows your room, fold it inward.</text>
+  <text x="95" y="295" font-family="Arial" font-size="25" fill="#dce4e1">If a picture changes, leave the sector.</text>
+  <rect x="140" y="395" width="744" height="135" fill="#111415"/>
+  <text x="180" y="478" font-family="Arial" font-size="42" font-weight="700" fill="#c8d0cc">WE LOST COUNT AT 17</text>
+  <text x="95" y="625" font-family="Arial" font-size="22" fill="#dce4e1">This notice was not printed by Base Alpha.</text>
+</svg>

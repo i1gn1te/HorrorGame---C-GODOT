@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://Scripts/Enemies/PipeRunnerEnemy.cs" id="1_script"]
+[ext_resource type="Material" path="res://Materials/M_Enemy_Runner.tres" id="2_material"]
+[ext_resource type="ArrayMesh" path="res://Models/Backrooms/pipe_runner_low.obj" id="3_mesh"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_runner"]
+size = Vector3(1.25, 0.95, 1.05)
+
+[node name="PipeRunnerEnemy" type="CharacterBody3D" groups=["enemies"]]
+script = ExtResource("1_script")
+EnemyName = "Pipe Runner"
+MaxHealth = 70.0
+AggroRange = 16.0
+AttackRange = 1.25
+AttackDamage = 16.0
+WindupSeconds = 0.65
+ChargeSeconds = 0.85
+ChargeSpeed = 8.6
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.48, 0)
+shape = SubResource("BoxShape3D_runner")
+
+[node name="Body" type="MeshInstance3D" parent="."]
+mesh = ExtResource("3_mesh")
+surface_material_override/0 = ExtResource("2_material")

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="768" viewBox="0 0 1024 768">
+  <rect width="1024" height="768" fill="#d0bc6a"/>
+  <rect x="40" y="40" width="944" height="688" fill="#c0aa58" stroke="#3a2d12" stroke-width="12"/>
+  <text x="80" y="120" font-family="Arial" font-size="42" font-weight="700" fill="#2a210f">ORIENTATION MAP</text>
+  <text x="80" y="165" font-family="Arial" font-size="24" fill="#2a210f">Do not trust previous measurements.</text>
+  <g stroke="#493b1a" stroke-width="12" fill="none">
+    <path d="M120 260 H860 V350 H500 V470 H820"/>
+    <path d="M190 560 H700 V635 H850"/>
+  </g>
+  <circle cx="505" cy="470" r="35" fill="#8b1717"/>
+  <text x="455" y="575" font-family="Arial" font-size="28" fill="#8b1717">YOU ARE NOT WHERE YOU STARTED</text>
+</svg>

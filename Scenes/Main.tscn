@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://cpxm37y0jclej"]
+
+[ext_resource type="Script" uid="uid://bs8w1elx5oprf" path="res://Scripts/Core/GameBootstrap.cs" id="1_bootstrap"]
+[ext_resource type="Script" uid="uid://defjw1mprd3p5" path="res://Scripts/Core/GameHud.cs" id="2_hud"]
+[ext_resource type="PackedScene" uid="uid://d0x8c3gkvxw2u" path="res://Scenes/Levels/Level01_LiminalLobby.tscn" id="3_level01"]
+[ext_resource type="PackedScene" uid="uid://d1manqkuumg3e" path="res://Scenes/Player/Player.tscn" id="4_player"]
+[ext_resource type="Script" uid="uid://dkb5jkmwvgyew" path="res://Scripts/Core/AudioMoodDirector.cs" id="5_audio_director"]
+[ext_resource type="VoxelGIData" uid="uid://ctncx5vx73neb" path="res://Scenes/Main.VoxelGI_data.res" id="6_v1gob"]
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_bootstrap")
+
+[node name="LevelRoot" type="Node3D" parent="."]
+
+[node name="Level01_LiminalLobby" parent="LevelRoot" instance=ExtResource("3_level01")]
+
+[node name="Player" parent="." instance=ExtResource("4_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 9)
+
+[node name="AudioMoodDirector" type="Node" parent="."]
+script = ExtResource("5_audio_director")
+
+[node name="HumLoop" type="AudioStreamPlayer" parent="AudioMoodDirector"]
+volume_db = -18.0
+
+[node name="RumbleLoop" type="AudioStreamPlayer" parent="AudioMoodDirector"]
+volume_db = -34.0
+
+[node name="StingerPlayer" type="AudioStreamPlayer" parent="AudioMoodDirector"]
+volume_db = -12.0
+
+[node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource("2_hud")
+
+[node name="VoxelGI" type="VoxelGI" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00811768, 1.56464, 0.0172119)
+size = Vector3(18.4479, 3.52893, 26.4539)
+data = ExtResource("6_v1gob")

@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://Scripts/Enemies/OfficeMimicEnemy.cs" id="1_script"]
+[ext_resource type="Material" path="res://Materials/M_Enemy_Mimic.tres" id="2_material"]
+[ext_resource type="ArrayMesh" path="res://Models/Backrooms/office_mimic_chair.obj" id="3_mesh"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mimic"]
+size = Vector3(1.1, 1.35, 1.1)
+
+[node name="OfficeMimicEnemy" type="CharacterBody3D" groups=["enemies"]]
+script = ExtResource("1_script")
+EnemyName = "Office Mimic"
+MaxHealth = 55.0
+AggroRange = 12.0
+AttackRange = 1.25
+AttackDamage = 8.0
+DriftSpeed = 0.95
+FearPerSecond = 8.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.62, 0)
+shape = SubResource("BoxShape3D_mimic")
+
+[node name="Body" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.62, 0)
+mesh = ExtResource("3_mesh")
+surface_material_override/0 = ExtResource("2_material")

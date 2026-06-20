@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <title>Level 0 Damp Carpet Tile</title>
+  <defs>
+    <filter id="fiber">
+      <feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="4" seed="31"/>
+      <feColorMatrix type="saturate" values="0.2"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.24"/>
+      </feComponentTransfer>
+    </filter>
+  </defs>
+  <rect width="512" height="512" fill="#706044"/>
+  <rect width="512" height="512" filter="url(#fiber)" opacity="0.5"/>
+  <g fill="none" stroke="#867351" stroke-width="4" opacity="0.55">
+    <path d="M10 70 C85 20 142 110 215 58 S365 40 502 86"/>
+    <path d="M0 190 C96 130 154 230 245 180 S390 142 512 205"/>
+    <path d="M12 310 C80 270 160 350 236 300 S380 254 500 330"/>
+    <path d="M0 442 C95 390 170 470 250 420 S410 385 512 458"/>
+  </g>
+  <ellipse cx="330" cy="295" rx="118" ry="46" fill="#393527" opacity="0.28"/>
+  <ellipse cx="145" cy="145" rx="80" ry="28" fill="#3f3a2a" opacity="0.2"/>
+</svg>

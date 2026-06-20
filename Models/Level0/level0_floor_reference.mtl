@@ -1,0 +1,5 @@
+newmtl level0_real_carpet
+Kd 0.82 0.74 0.48
+Ks 0.02 0.02 0.02
+Ns 8
+map_Kd ../../Assets/Graphics/Level0/level0_real_carpet_albedo.png

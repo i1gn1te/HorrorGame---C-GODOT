@@ -1,14 +1,5 @@
-[gd_resource type="StandardMaterial3D" load_steps=5 format=3 uid="uid://cj2h7s0y2170w"]
-
-[ext_resource type="Texture2D" uid="uid://mr4diss85a37" path="res://Assets/Graphics/Level1/Floor/Grass001_2K-PNG_Color.png" id="1_acufd"]
-[ext_resource type="Texture2D" uid="uid://dkww8nbtme8xp" path="res://Assets/Graphics/Level1/Floor/Grass001_2K-PNG_AmbientOcclusion.png" id="2_544ku"]
-[ext_resource type="Texture2D" uid="uid://bbiqb63mabelc" path="res://Assets/Graphics/Level1/Floor/Grass001_2K-PNG_NormalGL.png" id="3_dvrev"]
-[ext_resource type="Texture2D" uid="uid://cfsv1voxoxsjs" path="res://Assets/Graphics/Level1/Floor/Grass001_2K-PNG_Roughness.png" id="4_uxgd1"]
+[gd_resource type="StandardMaterial3D" format=3]
 
 [resource]
-albedo_texture = ExtResource("1_acufd")
-roughness_texture = ExtResource("4_uxgd1")
-normal_enabled = true
-normal_texture = ExtResource("3_dvrev")
-ao_enabled = true
-ao_texture = ExtResource("2_544ku")
+albedo_color = Color(0.36, 0.39, 0.34, 1)
+roughness = 0.95

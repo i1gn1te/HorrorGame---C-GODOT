@@ -1,10 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://d1manqkuumg3e"]
+[gd_scene load_steps=9 format=3 uid="uid://d1manqkuumg3e"]
 
-[ext_resource type="Script" path="res://Scripts/Player/PlayerController.cs" id="1_player_controller"]
-[ext_resource type="Script" path="res://Scripts/Player/PlayerStats.cs" id="2_player_stats"]
+[ext_resource type="Script" uid="uid://cfa2lpc1fhmir" path="res://Scripts/Player/PlayerController.cs" id="1_player_controller"]
+[ext_resource type="Script" uid="uid://b3kfj5hsb23c5" path="res://Scripts/Player/PlayerStats.cs" id="2_player_stats"]
 [ext_resource type="Material" path="res://Materials/M_Player.tres" id="3_player_material"]
-[ext_resource type="Script" path="res://Scripts/Player/PlayerFear.cs" id="4_player_fear"]
-[ext_resource type="Script" path="res://Scripts/Player/FlashBurstAbility.cs" id="5_flash_burst"]
+[ext_resource type="Script" uid="uid://ymdripuejb17" path="res://Scripts/Player/PlayerFear.cs" id="4_player_fear"]
+[ext_resource type="Script" uid="uid://xbem6cxcia43" path="res://Scripts/Player/FlashBurstAbility.cs" id="5_flash_burst"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_player"]
 radius = 0.35
@@ -16,12 +16,6 @@ size = Vector3(0.7, 1.65, 0.45)
 [sub_resource type="BoxShape3D" id="BoxShape3D_weapon"]
 size = Vector3(1.15, 0.75, 1.05)
 
-[sub_resource type="Environment" id="Environment_camera"]
-background_mode = 1
-ambient_light_source = 3
-ambient_light_color = Color(0.26, 0.24, 0.2, 1)
-ambient_light_energy = 0.45
-
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 script = ExtResource("1_player_controller")
 
@@ -32,8 +26,8 @@ shape = SubResource("CapsuleShape3D_player")
 [node name="VisualRoot" type="Node3D" parent="."]
 
 [node name="Body" type="MeshInstance3D" parent="VisualRoot"]
-visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
+visible = false
 mesh = SubResource("BoxMesh_body")
 surface_material_override/0 = ExtResource("3_player_material")
 
@@ -41,12 +35,11 @@ surface_material_override/0 = ExtResource("3_player_material")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.62, 0)
 
 [node name="CameraPitch" type="Node3D" parent="CameraYaw"]
-rotation = Vector3(0, 0, 0)
 
 [node name="Camera3D" type="Camera3D" parent="CameraYaw/CameraPitch"]
-environment = SubResource("Environment_camera")
-fov = 68.0
 current = true
+fov = 68.0
+far = 1000.0
 
 [node name="WeaponHitbox" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.95)

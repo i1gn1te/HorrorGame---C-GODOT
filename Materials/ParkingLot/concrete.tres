@@ -1,0 +1,19 @@
+[gd_resource type="StandardMaterial3D" load_steps=6 format=3 uid="uid://beti8pprxu5pc"]
+
+[ext_resource type="Texture2D" uid="uid://d06ep6074nean" path="res://Assets/Graphics/ParkingLot/Concrete1/Asphalt027C_4K-JPG_Color.jpg" id="1_gekr3"]
+[ext_resource type="Texture2D" uid="uid://rrtsy2r7estt" path="res://Assets/Graphics/ParkingLot/Concrete1/Asphalt027C_4K-JPG_AmbientOcclusion.jpg" id="2_0byfu"]
+[ext_resource type="Texture2D" uid="uid://hxg6epsogyno" path="res://Assets/Graphics/ParkingLot/Concrete1/Asphalt027C_4K-JPG_Displacement.jpg" id="3_hs2ga"]
+[ext_resource type="Texture2D" uid="uid://ccgksaefb1bhs" path="res://Assets/Graphics/ParkingLot/Concrete1/Asphalt027C_4K-JPG_NormalGL.jpg" id="4_3fb5c"]
+[ext_resource type="Texture2D" uid="uid://bl63bimkqq6e8" path="res://Assets/Graphics/ParkingLot/Concrete1/Asphalt027C_4K-JPG_Roughness.jpg" id="5_do5em"]
+
+[resource]
+albedo_texture = ExtResource("1_gekr3")
+roughness_texture = ExtResource("5_do5em")
+normal_enabled = true
+normal_texture = ExtResource("4_3fb5c")
+ao_enabled = true
+ao_texture = ExtResource("2_0byfu")
+heightmap_enabled = true
+heightmap_scale = 0.2
+heightmap_texture = ExtResource("3_hs2ga")
+uv1_scale = Vector3(80, 80, 1)

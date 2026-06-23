@@ -1,6 +1,6 @@
-[gd_resource type="StandardMaterial3D" load_steps=2 format=3]
-[ext_resource type="Texture2D" path="res://Assets/Graphics/Level4/level4_map.svg" id="1_map"]
+[gd_resource type="StandardMaterial3D" format=3]
+
 [resource]
-albedo_texture = ExtResource("1_map")
+albedo_color = Color(0.75, 0.76, 0.78, 1)
 roughness = 0.55
 cull_mode = 2

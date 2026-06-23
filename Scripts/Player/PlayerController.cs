@@ -4,28 +4,53 @@ using System.Collections.Generic;
 public partial class PlayerController : CharacterBody3D
 {
     // Ten skrypt steruje graczem:
-    // - ruch w pierwszej osobie,
-    // - kamera z oczu gracza,
+    // - wolny ruch w pierwszej osobie,
+    // - płynna kamera,
+    // - VHS / handheld feeling podczas chodzenia,
     // - stamina,
     // - unik,
-    // - prosty atak,
     // - prosty fundament pod akcję horrorową.
 
     [ExportGroup("Ruch")]
-    [Export] public float WalkSpeed = 4.1f;
-    [Export] public float SprintSpeed = 6.4f;
-    [Export] public float Acceleration = 22f;
-    [Export] public float Deceleration = 30f;
+    [Export] public float WalkSpeed = 3.65f;
+    [Export] public float SprintSpeed = 6.35f;
+    [Export] public float Acceleration = 4.2f;
+    [Export] public float Deceleration = 5.8f;
     [Export] public float Gravity = 24f;
 
-    [ExportGroup("Kamera")]
-    [Export] public float MouseSensitivity = 0.00135f;
+    [ExportGroup("Kamera - Obrót")]
+    [Export] public float MouseSensitivity = 0.00115f;
     [Export] public float MinCameraPitch = -0.85f;
     [Export] public float MaxCameraPitch = 0.35f;
+    [Export] public float LookSmoothness = 16.0f;
+    [Export] public float CameraFov = 66.0f;
+
+    [ExportGroup("Kamera - VHS Chód")]
+    [Export] public float WalkHeadBobFrequency = 2.85f;
+    [Export] public float SprintHeadBobFrequency = 4.15f;
+
+    [Export] public float WalkVerticalBobAmount = 0.012f;
+    [Export] public float SprintVerticalBobAmount = 0.020f;
+
+    [Export] public float WalkSideSwayAmount = 0.006f;
+    [Export] public float SprintSideSwayAmount = 0.010f;
+
+    [Export] public float WalkForwardSwayAmount = 0.004f;
+    [Export] public float SprintForwardSwayAmount = 0.007f;
+
+    [Export] public float WalkCameraRollDegrees = 0.18f;
+    [Export] public float SprintCameraRollDegrees = 0.35f;
+
+    [Export] public float CameraMotionSmoothness = 8.0f;
+
+    [ExportGroup("Kamera - Idle")]
+    [Export] public float IdleBreathingFrequency = 0.75f;
+    [Export] public float IdleBreathingAmount = 0.003f;
+    [Export] public float IdleDriftAmount = 0.002f;
 
     [ExportGroup("Unik")]
-    [Export] public float DodgeSpeed = 11f;
-    [Export] public float DodgeDuration = 0.28f;
+    [Export] public float DodgeSpeed = 8.5f;
+    [Export] public float DodgeDuration = 0.22f;
     [Export] public float DodgeStaminaCost = 28f;
 
     [ExportGroup("Walka")]
@@ -41,17 +66,36 @@ public partial class PlayerController : CharacterBody3D
     private Node3D _visualRoot;
     private Node3D _cameraYaw;
     private Node3D _cameraPitch;
+    private Camera3D _camera;
     private Area3D _weaponHitbox;
     private PlayerStats _stats;
 
     private Vector3 _lastMoveDirection = Vector3.Forward;
     private Vector3 _dodgeDirection = Vector3.Forward;
     private Vector3 _weaponHitboxStartPosition;
+
     private float _facingYaw;
+
+    private float _targetYaw;
+    private float _targetPitch;
+    private float _currentYaw;
+    private float _currentPitch;
+
+    private Vector3 _cameraYawStartPosition;
+    private Vector3 _cameraStartPosition;
+    private Vector3 _cameraCurrentOffset;
+    private Vector3 _cameraStartRotation;
+
+    private float _headBobTime;
+    private float _idleTime;
+    private float _cameraCurrentRoll;
+
     private float _dodgeTimer;
     private float _attackTimer;
     private float _currentAttackDamage;
+
     private bool _isDead;
+
     private readonly HashSet<Node> _alreadyHitThisAttack = new HashSet<Node>();
 
     public override void _Ready()
@@ -59,10 +103,28 @@ public partial class PlayerController : CharacterBody3D
         AddToGroup("player");
 
         _visualRoot = GetNode<Node3D>("VisualRoot");
+
         _cameraYaw = GetNode<Node3D>("CameraYaw");
         _cameraPitch = GetNode<Node3D>("CameraYaw/CameraPitch");
+        _camera = GetNode<Camera3D>("CameraYaw/CameraPitch/Camera3D");
+
+        _cameraYawStartPosition = _cameraYaw.Position;
+        _cameraStartPosition = _camera.Position;
+        _cameraStartRotation = _camera.Rotation;
+
+        _targetYaw = _cameraYaw.Rotation.Y;
+        _currentYaw = _cameraYaw.Rotation.Y;
+
+        _targetPitch = _cameraPitch.Rotation.X;
+        _currentPitch = _cameraPitch.Rotation.X;
+
+        _camera.Fov = CameraFov;
+
+        Input.MouseMode = Input.MouseModeEnum.Captured;
+
         _weaponHitbox = GetNode<Area3D>("WeaponHitbox");
         _stats = GetNode<PlayerStats>("PlayerStats");
+
         _weaponHitboxStartPosition = _weaponHitbox.Position;
 
         _weaponHitbox.Monitoring = false;
@@ -77,15 +139,19 @@ public partial class PlayerController : CharacterBody3D
             ToggleMouseCapture();
         }
 
-        // Gdy kursor jest złapany przez grę, ruch myszy obraca kamerę.
         if (inputEvent is InputEventMouseMotion mouseMotion && Input.MouseMode == Input.MouseModeEnum.Captured)
         {
-            _cameraYaw.RotateY(-mouseMotion.Relative.X * MouseSensitivity);
+            _targetYaw -= mouseMotion.Relative.X * MouseSensitivity;
 
-            float newPitch = _cameraPitch.Rotation.X - mouseMotion.Relative.Y * MouseSensitivity;
-            newPitch = Mathf.Clamp(newPitch, MinCameraPitch, MaxCameraPitch);
-            _cameraPitch.Rotation = new Vector3(newPitch, 0f, 0f);
+            _targetPitch -= mouseMotion.Relative.Y * MouseSensitivity;
+            _targetPitch = Mathf.Clamp(_targetPitch, MinCameraPitch, MaxCameraPitch);
         }
+    }
+
+    public override void _Process(double delta)
+    {
+        SmoothCameraRotation(delta);
+        UpdateVhsCameraMotion(delta);
     }
 
     public override void _PhysicsProcess(double delta)
@@ -112,6 +178,96 @@ public partial class PlayerController : CharacterBody3D
         _stats.RecoverStamina(delta, canRecoverStamina);
     }
 
+    private void SmoothCameraRotation(double delta)
+    {
+        float dt = (float)delta;
+        float smoothT = 1.0f - Mathf.Exp(-LookSmoothness * dt);
+
+        _currentYaw = Mathf.LerpAngle(_currentYaw, _targetYaw, smoothT);
+        _currentPitch = Mathf.Lerp(_currentPitch, _targetPitch, smoothT);
+
+        _cameraYaw.Rotation = new Vector3(0f, _currentYaw, 0f);
+        _cameraPitch.Rotation = new Vector3(_currentPitch, 0f, 0f);
+    }
+
+    private void UpdateVhsCameraMotion(double delta)
+    {
+        float dt = (float)delta;
+
+        Vector3 horizontalVelocity = new Vector3(Velocity.X, 0f, Velocity.Z);
+        float horizontalSpeed = horizontalVelocity.Length();
+
+        bool isMoving = IsOnFloor() && horizontalSpeed > 0.05f && _dodgeTimer <= 0f;
+        bool isSprinting = Input.IsActionPressed("sprint") && isMoving;
+
+        Vector3 targetOffset = Vector3.Zero;
+        float targetRoll = 0f;
+
+        _idleTime += dt;
+
+        if (isMoving)
+        {
+            float maxSpeed = isSprinting ? SprintSpeed : WalkSpeed;
+            float speedRatio = Mathf.Clamp(horizontalSpeed / maxSpeed, 0.0f, 1.0f);
+
+            float frequency = isSprinting ? SprintHeadBobFrequency : WalkHeadBobFrequency;
+
+            float verticalAmount = isSprinting ? SprintVerticalBobAmount : WalkVerticalBobAmount;
+            float sideAmount = isSprinting ? SprintSideSwayAmount : WalkSideSwayAmount;
+            float forwardAmount = isSprinting ? SprintForwardSwayAmount : WalkForwardSwayAmount;
+
+            float rollDegrees = isSprinting ? SprintCameraRollDegrees : WalkCameraRollDegrees;
+            float rollRadians = Mathf.DegToRad(rollDegrees);
+
+            _headBobTime += dt * horizontalSpeed * frequency;
+
+            float step = _headBobTime;
+
+            float verticalBob = Mathf.Abs(Mathf.Sin(step)) * verticalAmount;
+            verticalBob -= verticalAmount * 0.5f;
+
+            float sideSway = Mathf.Sin(step * 0.5f) * sideAmount;
+            float forwardSway = Mathf.Cos(step) * forwardAmount;
+
+            targetOffset = new Vector3(
+                sideSway,
+                verticalBob,
+                forwardSway
+            ) * speedRatio;
+
+            targetRoll = -Mathf.Sin(step * 0.5f) * rollRadians * speedRatio;
+        }
+        else
+        {
+            float idleVertical = Mathf.Sin(_idleTime * IdleBreathingFrequency) * IdleBreathingAmount;
+            float idleSide = Mathf.Sin(_idleTime * IdleBreathingFrequency * 0.43f) * IdleDriftAmount;
+
+            targetOffset = new Vector3(idleSide, idleVertical, 0f);
+            targetRoll = Mathf.Sin(_idleTime * 0.35f) * Mathf.DegToRad(0.04f);
+        }
+
+        float smoothT = 1.0f - Mathf.Exp(-CameraMotionSmoothness * dt);
+
+        _cameraCurrentOffset = _cameraCurrentOffset.Lerp(targetOffset, smoothT);
+        _cameraCurrentRoll = Mathf.Lerp(_cameraCurrentRoll, targetRoll, smoothT);
+
+        // Ważne:
+        // CameraYaw NIE może być przesuwany przez headbob,
+        // bo jest pivotem obrotu kamery.
+        // Gdy pivot się rusza i jednocześnie obracasz myszką,
+        // kamera może wyglądać jakby glitchowała.
+        _cameraYaw.Position = _cameraYawStartPosition;
+
+        // Headbob przesuwamy tylko na właściwej kamerze.
+        _camera.Position = _cameraStartPosition + _cameraCurrentOffset;
+
+        _camera.Rotation = new Vector3(
+            _cameraStartRotation.X,
+            _cameraStartRotation.Y,
+            _cameraStartRotation.Z + _cameraCurrentRoll
+        );
+    }
+
     private Vector3 GetCameraRelativeDirection(Vector2 input)
     {
         if (input.LengthSquared() <= 0.01f)
@@ -119,12 +275,12 @@ public partial class PlayerController : CharacterBody3D
             return Vector3.Zero;
         }
 
-        // Kamera patrzy w stronę -Z. Z tej informacji robimy kierunek ruchu na płaskiej podłodze.
         Vector3 forward = -_cameraYaw.GlobalTransform.Basis.Z;
         Vector3 right = _cameraYaw.GlobalTransform.Basis.X;
 
         forward.Y = 0f;
         right.Y = 0f;
+
         forward = forward.Normalized();
         right = right.Normalized();
 
@@ -133,11 +289,13 @@ public partial class PlayerController : CharacterBody3D
 
     private void MovePlayer(double delta, Vector3 moveDirection)
     {
+        float dt = (float)delta;
+
         Vector3 velocity = Velocity;
 
         if (!IsOnFloor())
         {
-            velocity.Y -= Gravity * (float)delta;
+            velocity.Y -= Gravity * dt;
         }
         else if (velocity.Y < 0f)
         {
@@ -149,23 +307,35 @@ public partial class PlayerController : CharacterBody3D
 
         if (_dodgeTimer > 0f)
         {
-            _dodgeTimer -= (float)delta;
+            _dodgeTimer -= dt;
+
             targetHorizontalVelocity = _dodgeDirection * DodgeSpeed;
-            currentHorizontalVelocity = targetHorizontalVelocity;
+
+            currentHorizontalVelocity = currentHorizontalVelocity.MoveToward(
+                targetHorizontalVelocity,
+                DodgeSpeed * 14f * dt
+            );
         }
         else
         {
             bool wantsSprint = Input.IsActionPressed("sprint") && moveDirection.LengthSquared() > 0.01f;
+
             float speed = wantsSprint ? SprintSpeed : WalkSpeed;
             targetHorizontalVelocity = moveDirection * speed;
 
-            // Ruch jest miękki: postać przyspiesza i hamuje zamiast natychmiast zmieniać prędkość.
-            float speedChange = targetHorizontalVelocity.LengthSquared() > 0.01f ? Acceleration : Deceleration;
-            currentHorizontalVelocity = currentHorizontalVelocity.MoveToward(targetHorizontalVelocity, speedChange * (float)delta);
+            float speedChange = targetHorizontalVelocity.LengthSquared() > 0.01f
+                ? Acceleration
+                : Deceleration;
+
+            currentHorizontalVelocity = currentHorizontalVelocity.MoveToward(
+                targetHorizontalVelocity,
+                speedChange * dt
+            );
         }
 
         velocity.X = currentHorizontalVelocity.X;
         velocity.Z = currentHorizontalVelocity.Z;
+
         Velocity = velocity;
 
         MoveAndSlide();
@@ -173,8 +343,6 @@ public partial class PlayerController : CharacterBody3D
 
     private void UpdateFirstPersonFacing()
     {
-        // W FPP kierunek postaci to kierunek kamery.
-        // Nie obracamy całego CharacterBody3D, żeby ruch i kolizje zostały stabilne.
         _facingYaw = _cameraYaw.Rotation.Y;
         ApplyFacingRotation();
     }
@@ -236,18 +404,19 @@ public partial class PlayerController : CharacterBody3D
 
         float elapsed = AttackDuration - _attackTimer;
         bool hitboxIsActive = elapsed >= AttackWindup && elapsed <= AttackWindup + AttackActiveTime;
+
         _weaponHitbox.Monitoring = hitboxIsActive;
     }
 
     private void OnWeaponBodyEntered(Node3D body)
     {
-        // Hitbox może dotknąć ściany albo podłogi, więc filtrujemy tylko grupę "enemies".
         if (!_weaponHitbox.Monitoring || !body.IsInGroup("enemies") || _alreadyHitThisAttack.Contains(body))
         {
             return;
         }
 
         _alreadyHitThisAttack.Add(body);
+
         if (body is IDamageable damageable)
         {
             damageable.TakeDamage(_currentAttackDamage, this);
@@ -257,7 +426,7 @@ public partial class PlayerController : CharacterBody3D
     private void ToggleLockOn()
     {
         // Lock-on był potrzebny w wersji TPP soulslike.
-        // W wersji FPP horrorowej zostawiamy tę metodę pustą, żeby Tab niczego nie psuł.
+        // W wersji FPP horrorowej zostawiamy tę metodę pustą.
     }
 
     private Node3D FindNearestEnemy()
@@ -273,6 +442,7 @@ public partial class PlayerController : CharacterBody3D
             }
 
             float distance = GlobalPosition.DistanceTo(enemy.GlobalPosition);
+
             if (distance < nearestDistance)
             {
                 nearestDistance = distance;
@@ -285,8 +455,6 @@ public partial class PlayerController : CharacterBody3D
 
     private void ApplyFacingRotation()
     {
-        // VisualRoot obraca tylko wygląd gracza.
-        // WeaponHitbox obraca i przesuwa pole obrażeń tak, żeby zawsze było przed postacią.
         _visualRoot.Rotation = new Vector3(0f, _facingYaw, 0f);
         _weaponHitbox.Rotation = new Vector3(0f, _facingYaw, 0f);
         _weaponHitbox.Position = RotateByYaw(_weaponHitboxStartPosition, _facingYaw);
@@ -299,14 +467,11 @@ public partial class PlayerController : CharacterBody3D
 
     private float GetYawFromDirection(Vector3 direction)
     {
-        // W Godot przód modelu to zwykle kierunek -Z, czyli Vector3.Forward.
         return Mathf.Atan2(-direction.X, -direction.Z);
     }
 
     private Vector3 RotateByYaw(Vector3 value, float yaw)
     {
-        // Ręczna rotacja po osi Y.
-        // Dzięki temu nie musimy obracać całego gracza razem z kamerą.
         float sin = Mathf.Sin(yaw);
         float cos = Mathf.Cos(yaw);
 

@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=3 uid="uid://bxuy0ybhfxxgb"]
+
+[ext_resource type="Texture2D" uid="uid://bfmbtlgw1yio8" path="res://Assets/HDRi/ParkingLot/EveningSkyHDRI041B_8K_HDR.exr" id="1_udyv4"]
+[ext_resource type="Material" uid="uid://beti8pprxu5pc" path="res://Materials/ParkingLot/concrete.tres" id="2_uhvcf"]
+[ext_resource type="Script" uid="uid://bcabwr7on2mlu" path="res://Scripts/World/StandaloneScenePreview.cs" id="2_y0fpo"]
+[ext_resource type="PackedScene" uid="uid://ce23afgy1jt8i" path="res://Models/ParkingLot/gas_station_pack__modular_petrol_station.glb" id="4_eevkb"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_uvw8a"]
+panorama = ExtResource("1_udyv4")
+
+[sub_resource type="Sky" id="Sky_uhvcf"]
+sky_material = SubResource("PanoramaSkyMaterial_uvw8a")
+
+[sub_resource type="Environment" id="Environment_eevkb"]
+background_mode = 2
+background_energy_multiplier = 0.85
+sky = SubResource("Sky_uhvcf")
+sky_custom_fov = 60.5
+ambient_light_source = 3
+ambient_light_color = Color(0.996078, 0.705882, 0.65098, 1)
+ambient_light_sky_contribution = 0.75
+ambient_light_energy = 0.45
+tonemap_mode = 3
+fog_enabled = true
+fog_light_color = Color(1, 0.780392, 0.760784, 1)
+fog_light_energy = 0.4
+fog_sky_affect = 0.25
+adjustment_enabled = true
+adjustment_brightness = 1.08
+adjustment_contrast = 0.97
+adjustment_saturation = 1.3
+
+[node name="Level3ParkingLot" type="Node3D"]
+script = ExtResource("2_y0fpo")
+
+[node name="PlayerSpawn" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5061, 12.2095, 0.260862)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78.002, 0, 107.56)
+use_collision = true
+size = Vector3(937.341, 1, 756.22)
+material = ExtResource("2_uhvcf")
+
+[node name="WorldEnvironment_sunset" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_eevkb")
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("4_eevkb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.76508, 0)
